@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Statistical Modelling App</title>
+  <title>Statistical Modeling App</title>
   <meta charset="utf-8">
-  <meta name="description" content="Statistical Modelling App">
+  <meta name="description" content="Statistical Modeling App">
   <meta name="author" content="Vlad Pascal">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,7 +32,7 @@
     <!-- LOGO SLIDE -->
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
-    <h1>Statistical Modelling App</h1>
+    <h1>Statistical Modeling App</h1>
     <h2>Using Shiny to develop data products</h2>
     <p>Vlad Pascal<br/></p>
   </hgroup>
@@ -55,12 +55,67 @@
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="class" id="id" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
-    <h2>Slide 2</h2>
+    <h2>Why Using the App?</h2>
   </hgroup>
   <article data-timings="">
-    
+    <p><br><br/></p>
+
+<ul>
+<li><p>A great illustration tool for someone who wants to understand important concepts but who may not a be statistician or a data analyst by training.</p>
+
+<ul>
+<li>Can stimulate critical thinking and careful analysis to establish meaningful cause-and-effect relationships between variables</li>
+<li>Can produce a valuable insight by uncovering relationships that were nor previously noticed or considered</li>
+<li>Can help think of the problems in terms of statistical modeling in general and predictive analytics in particular </li>
+</ul></li>
+<li><p>Simply put, the app is a great starting point for someone who wants to learn more:  it is clear, simple and a user-friendly tool!!! </p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>How does the App work?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Basically, the app uses the Boston dataset from MASS package and calls lm function to fit a linear model. Here&#39;s the example with two variables <em>medv</em> (median value of owner-occupied homes, which is a dependent variable) and <em>lstat</em> (owner status of the population, which is an independent variable).</p>
+
+<pre><code class="r">library(MASS)
+lm(medv~lstat, Boston)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ lstat, data = Boston)
+## 
+## Coefficients:
+## (Intercept)        lstat  
+##       34.55        -0.95
+</code></pre>
+
+<p>Very simple, right.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Thank you!</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br><br/></p>
+
+<p>The App can be accessed at <a href="http://pascalv.shinyapps.io/shiny/">http://pascalv.shinyapps.io/shiny/</a></p>
+
+<p>The source is avaiable at <a href="https://github.com/vpascal/data_app">https://github.com/vpascal/data_app</a></p>
+
+<p>This presentation is available at <a href="https://github.com/vpascal/vpascal.github.io">https://github.com/vpascal/vpascal.github.io</a></p>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -77,8 +132,20 @@
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Slide 2'>
+        data-slide=2 title='Why Using the App?'>
          2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='How does the App work?'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Thank you!'>
+         4
       </a>
     </li>
   </ul>
