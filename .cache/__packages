@@ -1,0 +1,9 @@
+base
+extrafont
+ggplot2
+gridExtra
+maptools
+rgdal
+rgeos
+scales
+sp
