@@ -1,0 +1,125 @@
+---
+title: "Faculty Load Report"
+date: "April 21, 2016"
+output: 
+  html_document: 
+    self_contained: no
+---
+
+<script src="http://www.d3plus.org/js/d3.js"></script>
+<script src="http://www.d3plus.org/js/d3plus.js"></script>
+
+<script>
+
+d3.csv("mydata.csv", function(error, mydata) {
+  if (error) return console.error(error);
+  
+
+  mydata.forEach(function(d) {
+    d3.keys(d).forEach(function(k){
+      if((k != "Dept") && (k != "Faculty") &&  (k != "Level")){
+        d[k] = +d[k]
+      }
+    })
+  });
+  
+  make_viz(mydata);
+});
+
+
+function make_viz(data){
+  var visualization = d3plus.viz()
+      .container("#viz")
+      .data(data)
+      .type("tree_map")
+      .id(["Dept","Level", "Faculty"])
+      .size("Total")
+      .labels({"align": "left", "valign": "top"})
+      .time({"value": "Year", "solo": 2014})
+      .title({
+              "value" : "Uncompleted Credits", "total": true
+               
+                })
+                
+      .font({ "size": 26 }) 
+      .draw()
+}
+
+
+</script>
+<br>
+<h3> Uncompleted Credits are calculated as a difference between total credits and completed credits.</h3>
+<br>
+
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+
+library(readxl); library(dplyr); library(tidyr); library(highcharter); library(DT)
+
+data_2014 <- read_excel("Excel/Completed_Credits_Diff_AY1415_03MAY16.xlsx",sheet = "Gap_Credits_AY_201415")[c(2,3,5,10,11:12)]
+
+data_2014$Year <- 2014
+
+data_2013 <- read_excel("Excel/Completed_Credits_Diff_AY1314_03MAY16.xlsx",sheet = "Gap_Credits_AY_201314")[c(2,3,5,10,11:12)]
+data_2013$Year <- 2013
+
+data_2012 <- read_excel("Excel/Completed_Credits_Diff_AY1213_03MAY16.xlsx",sheet = "Gap_Credits_AY_201213")[c(2,3,5,10,11:12)]
+data_2012$Year <- 2012
+
+data <- bind_rows(data_2012,data_2013,data_2014)
+
+data$Level[data$Level=="U"] <- "Undegraduate"
+data$Level[data$Level=="G"] <- "Graduate"
+
+data_summary <- data %>% dplyr:: filter(Dept_Code!="ST") %>% 
+  group_by(Dept_Code,Faculty_Type,Year,Level) %>% 
+  summarise(Total=sum(CCredits_Difference)) %>%
+  rename(Dept = Dept_Code,Faculty=Faculty_Type)
+
+data_summary_ii <- data %>% dplyr:: filter(Dept_Code!="ST") %>% 
+  group_by(Dept_Code, Year) %>% 
+  summarise(Uncompleted=sum(CCredits_Difference), Total=sum(`Credits_AY`)) %>% 
+  mutate(`Percent Uncompleted` = round(Uncompleted/Total*100,1)) %>% 
+  rename(Dept = Dept_Code)
+  
+# noquote(
+# paste0("{","\'value\': ",data_summary$Total,", \'name\': \'",data_summary$`Faculty Type`,"\',\'group\': \'",data_summary$`Dept Code`,"\'},")
+# )
+
+# write.csv(data_summary,"mydata.csv",row.names = F)
+
+data %>% dplyr:: filter(Dept_Code!="ST") %>% 
+  group_by(Year) %>% 
+  summarise(Total=sum(`Credits_AY`),Completed= sum(CCredits_AY), Uncompleted=sum(CCredits_Difference)) %>% 
+  mutate(`Percent Uncompleted` = round(Uncompleted/Total*100,1)) %>% 
+  datatable()
+```
+
+<br>
+
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+
+chart <- data_summary_ii %>% select(Dept,Year,`Percent Uncompleted`) %>% spread(Dept,`Percent Uncompleted`)
+
+highchart(height = 600) %>% 
+  hc_xAxis(categories = chart$Year, labels=list(style=list(fontWeight = "bold", fontSize ='16px'))) %>% 
+  hc_yAxis(title=list(text="Percentage"),labels=list(style=list(fontWeight = "bold", fontSize ='14px'))) %>% 
+  hc_add_series(name = "CHE", data = chart$CHE) %>% 
+  hc_add_series(name = "ES", data = chart$ES) %>% 
+  hc_add_series(name = "HCS", data = chart$HCS) %>% 
+  hc_add_series(name = "RSP", data = chart$RSP) %>% 
+  hc_add_series(name = "TE", data = chart$TE) %>% 
+  hc_title(text="<b>Uncompleted Credits as Percent of Total Credits</b>")%>% hc_add_theme(hc_theme_flat(chart=list(backgroundColor=NULL)))
+
+
+```
+
+<br>
+
+<div id="viz" style="height:600px"></div>
+
+<style>
+
+ #viz{
+     margin-botom: 200px;
+ }
+</style
