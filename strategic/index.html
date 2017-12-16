@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//d3plus.org/js/d3.js"></script>
+<script src="//d3plus.org/js/d3plus.js"></script>
+
+<body>
+
+<link rel="stylesheet" href="style.css"> 
+
+<div id="viz"></div>
+<br>
+<br>
+<div id="viz2"></div>
+<br>
+<br>
+<div id="viz3"></div>
+<br>
+<br>
+<div id="ohio" ></div>
+
+
+<script type="text/javascript">
+  var sample_data =[
+  {
+    "Code": "Action",
+    "Theme": "Administrative Support",
+    "Subtheme": "Administrative Support",
+    "count": 2
+  },
+  {
+    "Code": "Action",
+    "Theme": "Core Values",
+    "Subtheme": "Civic Engagement & Discourse",
+    "count": 1
+  },
+  {
+    "Code": "Action",
+    "Theme": "Core Values",
+    "Subtheme": "College Affordabilty",
+    "count": 8
+  },
+  {
+    "Code": "Action",
+    "Theme": "Core Values",
+    "Subtheme": "Inclusion & Diversity",
+    "count": 8
+  },
+  {
+    "Code": "Action",
+    "Theme": "Miscellaneous",
+    "Subtheme": "Miscellaneous",
+    "count": 4
+  },
+  {
+    "Code": "Action",
+    "Theme": "Outreach",
+    "Subtheme": "Community Outreach",
+    "count": 3
+  },
+  {
+    "Code": "Action",
+    "Theme": "Outreach",
+    "Subtheme": "Globalization",
+    "count": 5
+  },
+  {
+    "Code": "Action",
+    "Theme": "Outreach",
+    "Subtheme": "Partners in Regional Development",
+    "count": 4
+  },
+  {
+    "Code": "Action",
+    "Theme": "Outreach",
+    "Subtheme": "Public Policy",
+    "count": 3
+  },
+  {
+    "Code": "Action",
+    "Theme": "Recognition",
+    "Subtheme": "Recognition of Accomplishments",
+    "count": 1
+  },
+  {
+    "Code": "Action",
+    "Theme": "Scholarly & Creative Activity",
+    "Subtheme": "Grants",
+    "count": 1
+  },
+  {
+    "Code": "Action",
+    "Theme": "Scholarly & Creative Activity",
+    "Subtheme": "Research Excellence",
+    "count": 2
+  },
+  {
+    "Code": "Action",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Clinically based Experiential Education",
+    "count": 1
+  },
+  {
+    "Code": "Action",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Instructional Innovation",
+    "count": 14
+  },
+  {
+    "Code": "Action",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Interdisciplinary Programming",
+    "count": 3
+  },
+  {
+    "Code": "Action",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Professional Preparation",
+    "count": 5
+  },
+  {
+    "Code": "Action/Outcome",
+    "Theme": "Outreach",
+    "Subtheme": "Globalization",
+    "count": 1
+  },
+  {
+    "Code": "Action/Outcome",
+    "Theme": "Outreach",
+    "Subtheme": "Rural Education Focus",
+    "count": 1
+  },
+  {
+    "Code": "Action/Outcome",
+    "Theme": "Student Retention & Success",
+    "Subtheme": "Student Enrollment",
+    "count": 1
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Administrative Support",
+    "Subtheme": "Administrative Support",
+    "count": 12
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Core Values",
+    "Subtheme": "Civic Engagement & Discourse",
+    "count": 4
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Core Values",
+    "Subtheme": "College Affordabilty",
+    "count": 7
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Core Values",
+    "Subtheme": "Environmental Sustainability",
+    "count": 2
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Core Values",
+    "Subtheme": "Inclusion & Diversity",
+    "count": 7
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Miscellaneous",
+    "Subtheme": "Miscellaneous",
+    "count": 2
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Outreach",
+    "Subtheme": "Alumni Outreach",
+    "count": 1
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Outreach",
+    "Subtheme": "Community Outreach",
+    "count": 11
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Outreach",
+    "Subtheme": "Globalization",
+    "count": 9
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Outreach",
+    "Subtheme": "Partners in Regional Development",
+    "count": 1
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Outreach",
+    "Subtheme": "Public Policy",
+    "count": 6
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Outreach",
+    "Subtheme": "Rural Education Focus",
+    "count": 2
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Recognition",
+    "Subtheme": "Best Practices",
+    "count": 9
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Recognition",
+    "Subtheme": "Recognition of Accomplishments",
+    "count": 25
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Scholarly & Creative Activity",
+    "Subtheme": "Endowment",
+    "count": 1
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Scholarly & Creative Activity",
+    "Subtheme": "Grants",
+    "count": 5
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Scholarly & Creative Activity",
+    "Subtheme": "Research Excellence",
+    "count": 11
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Student Retention & Success",
+    "Subtheme": "Crisis Reduction",
+    "count": 1
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Student Retention & Success",
+    "Subtheme": "Graduation Rates",
+    "count": 1
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Student Retention & Success",
+    "Subtheme": "Student Enrollment",
+    "count": 2
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Student Retention & Success",
+    "Subtheme": "Student Job Placement",
+    "count": 3
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Student Retention and Success",
+    "Subtheme": "Crisis Reduction",
+    "count": 1
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Clinically based Experiential Education",
+    "count": 8
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Instructional Innovation",
+    "count": 21
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Interdisciplinary Programming",
+    "count": 4
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Miscellaneous",
+    "count": 2
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Professional Preparation",
+    "count": 5
+  },
+  {
+    "Code": "Goal",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Transformative Learning",
+    "count": 1
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Administrative Support",
+    "Subtheme": "Administrative Support",
+    "count": 3
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Core Values",
+    "Subtheme": "Civic Engagement & Discourse",
+    "count": 6
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Core Values",
+    "Subtheme": "College Affordabilty",
+    "count": 3
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Core Values",
+    "Subtheme": "Environmental Sustainability",
+    "count": 1
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Core Values",
+    "Subtheme": "Inclusion & Diversity",
+    "count": 11
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Miscellaneous",
+    "Subtheme": "Miscellaneous",
+    "count": 1
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Outreach",
+    "Subtheme": "Community Outreach",
+    "count": 8
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Outreach",
+    "Subtheme": "Globalization",
+    "count": 4
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Outreach",
+    "Subtheme": "Partners in Regional Development",
+    "count": 8
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Outreach",
+    "Subtheme": "Public Policy",
+    "count": 3
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Outreach",
+    "Subtheme": "Rural Education Focus",
+    "count": 1
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Recognition",
+    "Subtheme": "Best Practices",
+    "count": 1
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Recognition",
+    "Subtheme": "Recognition of Accomplishments",
+    "count": 13
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Scholarly & Creative Activity",
+    "Subtheme": "Grants",
+    "count": 7
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Scholarly & Creative Activity",
+    "Subtheme": "Research Excellence",
+    "count": 6
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Student Retention & Success",
+    "Subtheme": "Crisis Reduction",
+    "count": 1
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Student Retention & Success",
+    "Subtheme": "Student Enrollment",
+    "count": 4
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Student Retention and Success",
+    "Subtheme": "Student Enrollment",
+    "count": 4
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Clinically based Experiential Education",
+    "count": 4
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Instructional Innovation",
+    "count": 22
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Interdisciplinary Programming",
+    "count": 4
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Miscellaneous",
+    "count": 3
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Professional Preparation",
+    "count": 1
+  },
+  {
+    "Code": "Outcome",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Transformative Learning",
+    "count": 3
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Core Values",
+    "Subtheme": "Civic Engagement & Discourse",
+    "count": 4
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Core Values",
+    "Subtheme": "Inclusion & Diversity",
+    "count": 12
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Core Values",
+    "Subtheme": "Leadership",
+    "count": 1
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Miscellaneous",
+    "Subtheme": "Miscellaneous",
+    "count": 2
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Outreach",
+    "Subtheme": "Community Outreach",
+    "count": 2
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Outreach",
+    "Subtheme": "Globalization",
+    "count": 5
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Outreach",
+    "Subtheme": "Partners in Regional Development",
+    "count": 1
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Outreach",
+    "Subtheme": "Public Policy",
+    "count": 1
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Recognition",
+    "Subtheme": "Best Practices",
+    "count": 2
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Recognition",
+    "Subtheme": "Recognition of Accomplishments",
+    "count": 2
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Clinically based Experiential Education",
+    "count": 2
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Evidence-Based Practices",
+    "count": 1
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Instructional Innovation",
+    "count": 2
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Interdisciplinary Programming",
+    "count": 4
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Professional Preparation",
+    "count": 5
+  },
+  {
+    "Code": "Vision",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Transformative Learning",
+    "count": 7
+  },
+  {
+    "Code": "Vision/Goal",
+    "Theme": "Core Values",
+    "Subtheme": "Inclusion & Diversity",
+    "count": 1
+  },
+  {
+    "Code": "Vision/Goal",
+    "Theme": "Recognition",
+    "Subtheme": "Recognition of Accomplishments",
+    "count": 1
+  },
+  {
+    "Code": "Vision/Goal",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Professional Preparation",
+    "count": 1
+  },
+  {
+    "Code": "Vision/Goal",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Transformative Learning",
+    "count": 1
+  }
+
+]
+  var visualization = d3plus.viz()
+    .container("#viz")
+    .data(sample_data)
+    .type("tree_map")
+    .id(["Theme","Subtheme","Code"])
+    .title("Theme/Subtheme/Code")
+    .size("count")
+    .draw()
+
+
+  var visualization2 = d3plus.viz()
+    .container("#viz2")
+    .data(sample_data)
+    .type("tree_map")
+    .id(["Code","Theme","Subtheme"])
+    .legend({'filters':true,'data': false})
+    .title("Code/Theme/Subtheme")
+    .size("count")
+    .draw()
+
+
+var visualization3 = d3plus.viz()
+      .container("#viz3")
+      .data(sample_data)
+      .type("bar")
+      .id(["Theme","Code"])
+      .y('count')
+      .x('Theme')
+      .title('Theme/Code')
+      .draw()
+
+var visualization4 = d3plus.viz()
+      .container("#ohio")
+      .data(sample_data)
+      .type("bar")
+      .id(["Theme","Subtheme"])
+      .y('count')
+      .x('Theme')
+      .title('Theme/Subthemes')
+      .draw()
+
+
+</script>
+</body>
+</html>
