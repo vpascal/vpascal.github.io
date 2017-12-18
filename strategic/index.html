@@ -575,9 +575,27 @@
     .container("#viz")
     .data('final.csv')
     .type("tree_map")
-    .id(["Theme","Subtheme","Code"])
+    .id({
+      'value' : ["Theme","Subtheme","Code"]
+      })
+    .labels({"align": "left", "valign": "top"})
     .title("Theme/Subtheme/Code")
     .size("count")
+    .ui([
+      {
+        "label" : "Expand",
+        "type" : "button",
+        "value" : [{"Themes":"Themes"}, {"Subthemes":"Subthemes"}],
+        "method" : function(value, viz){
+        if(value == "Subthemes"){
+           viz.depth(1).draw();
+        }
+        else if (value == "Themes") {
+             viz.depth(0).draw();
+          }
+        }
+      }
+       ])
     .draw()
 
 
