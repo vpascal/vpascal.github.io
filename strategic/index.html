@@ -583,7 +583,7 @@
 
   var visualization2 = d3plus.viz()
     .container("#viz2")
-    .data(sample_data)
+    .data('final.csv')
     .type("tree_map")
     .id(["Code","Theme","Subtheme"])
     .legend({'filters':true,'data': false})
@@ -594,7 +594,7 @@
 
 var visualization3 = d3plus.viz()
       .container("#viz3")
-      .data(sample_data)
+      .data('final.csv')
       .type("bar")
       .id(["Theme","Code"])
       .y('count')
@@ -604,7 +604,7 @@ var visualization3 = d3plus.viz()
 
 var visualization4 = d3plus.viz()
       .container("#ohio")
-      .data(sample_data)
+      .data('final.csv')
       .type("bar")
       .id(["Theme","Subtheme"])
       .y('count')
