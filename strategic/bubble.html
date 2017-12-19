@@ -1,28 +1,18 @@
-<!DOCTYPE html>
-<html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<meta charset="utf-8">
+
+<!-- load D3js -->
 <script src="//d3plus.org/js/d3.js"></script>
+
+<!-- load D3plus after D3js -->
 <script src="//d3plus.org/js/d3plus.js"></script>
 
-<body>
-
-<link rel="stylesheet" href="style.css"> 
-
+<!-- create container element for visualization -->
 <div id="viz"></div>
-<br>
-<br>
-<div id="viz2"></div>
-<br>
-<br>
-<div id="viz3"></div>
-<br>
-<br>
-<div id="ohio" ></div>
 
-
-<script type="text/javascript">
-  var sample_data =[
+<script>
+  // sample data array
+  var sample_data = [
   {
     "Code": "Action",
     "Theme": "Administrative Support",
@@ -57,31 +47,31 @@
     "Code": "Action",
     "Theme": "Outreach",
     "Subtheme": "Community Outreach",
-    "count": 3
+    "count": 7
   },
   {
     "Code": "Action",
     "Theme": "Outreach",
     "Subtheme": "Globalization",
-    "count": 5
+    "count": 7
   },
   {
     "Code": "Action",
     "Theme": "Outreach",
     "Subtheme": "Partners in Regional Development",
-    "count": 4
+    "count": 5
   },
   {
     "Code": "Action",
     "Theme": "Outreach",
     "Subtheme": "Public Policy",
-    "count": 3
+    "count": 5
   },
   {
     "Code": "Action",
     "Theme": "Recognition",
     "Subtheme": "Recognition of Accomplishments",
-    "count": 1
+    "count": 3
   },
   {
     "Code": "Action",
@@ -93,31 +83,37 @@
     "Code": "Action",
     "Theme": "Scholarly & Creative Activity",
     "Subtheme": "Research Excellence",
-    "count": 2
-  },
-  {
-    "Code": "Action",
-    "Theme": "Teaching & Learning",
-    "Subtheme": "Clinically based Experiential Education",
-    "count": 1
-  },
-  {
-    "Code": "Action",
-    "Theme": "Teaching & Learning",
-    "Subtheme": "Instructional Innovation",
-    "count": 14
-  },
-  {
-    "Code": "Action",
-    "Theme": "Teaching & Learning",
-    "Subtheme": "Interdisciplinary Programming",
     "count": 3
   },
   {
     "Code": "Action",
     "Theme": "Teaching & Learning",
+    "Subtheme": "Clinically based Experiential Education",
+    "count": 2
+  },
+  {
+    "Code": "Action",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Instructional Innovation",
+    "count": 18
+  },
+  {
+    "Code": "Action",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Interdisciplinary Programming",
+    "count": 4
+  },
+  {
+    "Code": "Action",
+    "Theme": "Teaching & Learning",
     "Subtheme": "Professional Preparation",
-    "count": 5
+    "count": 6
+  },
+  {
+    "Code": "Action",
+    "Theme": "Teaching & Learning",
+    "Subtheme": "Transformative Learning",
+    "count": 1
   },
   {
     "Code": "Action/Outcome",
@@ -141,7 +137,7 @@
     "Code": "Goal",
     "Theme": "Administrative Support",
     "Subtheme": "Administrative Support",
-    "count": 12
+    "count": 23
   },
   {
     "Code": "Goal",
@@ -153,7 +149,7 @@
     "Code": "Goal",
     "Theme": "Core Values",
     "Subtheme": "College Affordabilty",
-    "count": 7
+    "count": 10
   },
   {
     "Code": "Goal",
@@ -183,7 +179,7 @@
     "Code": "Goal",
     "Theme": "Outreach",
     "Subtheme": "Community Outreach",
-    "count": 11
+    "count": 14
   },
   {
     "Code": "Goal",
@@ -201,7 +197,7 @@
     "Code": "Goal",
     "Theme": "Outreach",
     "Subtheme": "Public Policy",
-    "count": 6
+    "count": 11
   },
   {
     "Code": "Goal",
@@ -219,7 +215,7 @@
     "Code": "Goal",
     "Theme": "Recognition",
     "Subtheme": "Recognition of Accomplishments",
-    "count": 25
+    "count": 29
   },
   {
     "Code": "Goal",
@@ -237,7 +233,7 @@
     "Code": "Goal",
     "Theme": "Scholarly & Creative Activity",
     "Subtheme": "Research Excellence",
-    "count": 11
+    "count": 12
   },
   {
     "Code": "Goal",
@@ -261,7 +257,7 @@
     "Code": "Goal",
     "Theme": "Student Retention & Success",
     "Subtheme": "Student Job Placement",
-    "count": 3
+    "count": 4
   },
   {
     "Code": "Goal",
@@ -273,19 +269,19 @@
     "Code": "Goal",
     "Theme": "Teaching & Learning",
     "Subtheme": "Clinically based Experiential Education",
-    "count": 8
+    "count": 9
   },
   {
     "Code": "Goal",
     "Theme": "Teaching & Learning",
     "Subtheme": "Instructional Innovation",
-    "count": 21
+    "count": 28
   },
   {
     "Code": "Goal",
     "Theme": "Teaching & Learning",
     "Subtheme": "Interdisciplinary Programming",
-    "count": 4
+    "count": 5
   },
   {
     "Code": "Goal",
@@ -297,13 +293,13 @@
     "Code": "Goal",
     "Theme": "Teaching & Learning",
     "Subtheme": "Professional Preparation",
-    "count": 5
+    "count": 13
   },
   {
     "Code": "Goal",
     "Theme": "Teaching & Learning",
     "Subtheme": "Transformative Learning",
-    "count": 1
+    "count": 2
   },
   {
     "Code": "Outcome",
@@ -363,7 +359,7 @@
     "Code": "Outcome",
     "Theme": "Outreach",
     "Subtheme": "Public Policy",
-    "count": 3
+    "count": 6
   },
   {
     "Code": "Outcome",
@@ -417,19 +413,19 @@
     "Code": "Outcome",
     "Theme": "Teaching & Learning",
     "Subtheme": "Clinically based Experiential Education",
-    "count": 4
+    "count": 6
   },
   {
     "Code": "Outcome",
     "Theme": "Teaching & Learning",
     "Subtheme": "Instructional Innovation",
-    "count": 22
+    "count": 24
   },
   {
     "Code": "Outcome",
     "Theme": "Teaching & Learning",
     "Subtheme": "Interdisciplinary Programming",
-    "count": 4
+    "count": 5
   },
   {
     "Code": "Outcome",
@@ -441,7 +437,7 @@
     "Code": "Outcome",
     "Theme": "Teaching & Learning",
     "Subtheme": "Professional Preparation",
-    "count": 1
+    "count": 3
   },
   {
     "Code": "Outcome",
@@ -477,7 +473,7 @@
     "Code": "Vision",
     "Theme": "Outreach",
     "Subtheme": "Community Outreach",
-    "count": 2
+    "count": 4
   },
   {
     "Code": "Vision",
@@ -495,7 +491,7 @@
     "Code": "Vision",
     "Theme": "Outreach",
     "Subtheme": "Public Policy",
-    "count": 1
+    "count": 3
   },
   {
     "Code": "Vision",
@@ -507,7 +503,7 @@
     "Code": "Vision",
     "Theme": "Recognition",
     "Subtheme": "Recognition of Accomplishments",
-    "count": 2
+    "count": 4
   },
   {
     "Code": "Vision",
@@ -531,13 +527,13 @@
     "Code": "Vision",
     "Theme": "Teaching & Learning",
     "Subtheme": "Interdisciplinary Programming",
-    "count": 4
+    "count": 5
   },
   {
     "Code": "Vision",
     "Theme": "Teaching & Learning",
     "Subtheme": "Professional Preparation",
-    "count": 5
+    "count": 7
   },
   {
     "Code": "Vision",
@@ -569,69 +565,17 @@
     "Subtheme": "Transformative Learning",
     "count": 1
   }
-
 ]
+  // instantiate d3plus
   var visualization = d3plus.viz()
-    .container("#viz")
-    .data({'value': 'final.csv'})
-    .type("tree_map")
-    .id({
-      'value' : ["Theme","Subtheme","Code"]
-      })
-    .labels({"align": "left", "valign": "top"})
-    .title("Theme/Subtheme/Code")
-    .size("count")
+    .container("#viz")     // container DIV to hold the visualization
+    .data(sample_data)     // data to use with the visualization
+    .type("bubbles")       // visualization type
+    .id(["Theme", "Subtheme"]) // nesting keys           // 0-based depth
+    .size("count")         // key name to size bubbles
+    .color("Theme")   
+    .depth (1) 
+    .legend({'filters':true}) 
     .resize(true)
-    .ui([
-      {
-        "label" : "Expand",
-        "type" : "button",
-        "value" : [{"Themes":"Themes"}, {"Subthemes":"Subthemes"}],
-        "method" : function(value, viz){
-        if(value == "Subthemes"){
-           viz.depth(1).draw();
-        }
-        else if (value == "Themes") {
-             viz.depth(0).draw();
-          }
-        }
-      }
-       ])
-    .draw()
-
-
-  var visualization2 = d3plus.viz()
-    .container("#viz2")
-    .data('final.csv')
-    .type("tree_map")
-    .id(["Code","Theme","Subtheme"])
-    .legend({'filters':true,'data': false})
-    .title("Code/Theme/Subtheme")
-    .size("count")
-    .draw()
-
-
-var visualization3 = d3plus.viz()
-      .container("#viz3")
-      .data('final.csv')
-      .type("bar")
-      .id(["Theme","Code"])
-      .y('count')
-      .x('Theme')
-      .title('Theme/Code')
-      .draw()
-
-var visualization4 = d3plus.viz()
-      .container("#ohio")
-      .data('final.csv')
-      .type("bar")
-      .id(["Theme","Subtheme"])
-      .y('count')
-      .x('Theme')
-      .title('Theme/Subthemes')
-      .draw()
-
-
+    .draw()                // finally, draw the visualization!
 </script>
-</body>
-</html>
